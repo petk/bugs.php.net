@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  app:
+    image: petk/web-bugs
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - bugsphpnet
+    volumes:
+      - ../web-bugs:/var/www/app
+    ports:
+      - "80:80"
+  database:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=phpbugsdb
+      - MYSQL_USER=nobody
+      - MySQL_PASSWORD=password
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - bugsphpnet
+    volumes:
+      - ../web-bugs/sql/bugs.sql:/docker-entrypoint-initdb.d/bugs.sql
+  adminer:
+    image: petk/adminer
+    ports:
+      - "8080:80"
+    networks:
+      - bugsphpnet
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  bugsphpnet:
