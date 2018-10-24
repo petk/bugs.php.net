@@ -27,7 +27,7 @@ services:
     networks:
       - bugsphpnet
     volumes:
-      - ../web-bugs/sql/bugs.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ../web-bugs/sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ../data/categories.sql:/docker-entrypoint-initdb.d/02_categories.sql
   adminer:
     image: petk/adminer
