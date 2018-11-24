@@ -11,6 +11,6 @@ build: ## Build Docker application image
 
 install: build ## Build and install everything
   @[ -d "web-bugs" ] || git clone git://github.com/php/web-bugs
-  cp .docker/app/var/www/app/local_config.php web-bugs/local_config.php
+  cp local_config.php web-bugs/local_config.php
   docker swarm init
   docker stack deploy -c .docker/stack.dev.yaml bugsphpnet
