@@ -14,3 +14,7 @@ install: build ## Build and install everything
   cp local_config.php web-bugs/local_config.php
   docker swarm init
   docker stack deploy -c .docker/stack.dev.yaml bugsphpnet
+
+app = docker container exec -it bugsphpnet_app.1.$$(docker service ps -f 'name=bugsphpnet_app.1' -f 'desired-state=running' bugsphpnet_app -q --no-trunc)
+run: ## Run a command in a running application container
+  @$(app) $(a)
