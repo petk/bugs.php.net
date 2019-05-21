@@ -8,5 +8,5 @@ This is a helper repository to install the
 To build Docker images, install the app and bring everything up:
 
 ```bash
-make install
+make up
 ```
