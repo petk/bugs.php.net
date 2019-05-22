@@ -28,7 +28,6 @@ services:
       - bugsphpnet
     volumes:
       - ../web-bugs/sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
-      - ../data/categories.sql:/docker-entrypoint-initdb.d/02_categories.sql
   adminer:
     image: petk/adminer
     ports:
@@ -39,6 +38,15 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    links:
+      - app
+    networks:
+      - bugsphpnet
 
 networks:
   bugsphpnet:
